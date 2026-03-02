@@ -41,26 +41,53 @@
         input {
             margin-top: 20px;
         }
+        
+        .navbar{
+    background: black;
+    padding:15px 40px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.nav-left{
+    display:flex;
+    align-items:center;
+    gap:25px;
+}
+
+.logo{
+    font-weight:bold;
+    font-size:20px;
+    color:#129fe6;
+}
+
+.nav-links a{
+    text-decoration:none;
+    color:white;
+    margin-right:20px;
+}
+
+.nav-links a:hover{
+    color:#0aa1ec;
+}
+
     </style>
 </head>
 
 <body>
-     <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
-            <div class="container fluid">
-                <div class="collapse navbar-collapse" id="mynavbar">
-                <ul class="navbar-nav me-auto">
-                    <a href="index.html" class="navbar brand"><img src="images__1_-removebg-preview.png" width="50px"></a>
-                    <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
-                    <li class="nav-item"><a href="#" class="nav-link">Fare Matrix</a></li>
-                    <li class="nav-item"><a href="#" class="nav-link">Schedule</a></li> 
-                    <li class="nav-item"><a href="#" class="nav-link">Help</a></li>
-                    <li class="nav-item"><a href="registration.html" class="nav-link">Create Account</a></li>  
-                </ul>
-                <form class="d-flex">
-                    <button type="button" class="btn btn-primary">Create Account</button>
-                </form>
+    <div class="navbar">
+        <div class="nav-left">
+            <div class="logo">🚕 DriveMo</div>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="#">Fare Matrix</a>
+                <a href="#">Schedule</a>
+                <a href="#">Help</a>
             </div>
-        </nav>
+        </div>
+        <a href="registration.html" class="create-btn">Create Account</a>
+    </div>
 
         <form>
             <div class="container mt-4">
