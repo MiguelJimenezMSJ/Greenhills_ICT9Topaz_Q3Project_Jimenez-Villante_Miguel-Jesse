@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>eSakayMo Fare Guide</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    background: url("https://www.philippinebeaches.org/wp-content/uploads/2025/09/Boni-Station-MRT3.jpeg") no-repeat center center/cover;
+    height:100vh;
+    color:white;
+}
+
+
+.navbar{
+    background: black
+    padding:15px 40px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.nav-left{
+    display:flex;
+    align-items:center;
+    gap:25px;
+}
+
+.logo{
+    font-weight:bold;
+    font-size:20px;
+    color:#129fe6;
+}
+
+.nav-links a{
+    text-decoration:none;
+    color:white;
+    margin-right:20px;
+}
+
+.nav-links a:hover{
+    color:#0aa1ec;
+}
+
+.create-btn{
+    background:#1e90ff;
+    padding:8px 15px;
+    border-radius:6px;
+    text-decoration:none;
+    color:white;
+}
+
+
+.container{
+    width:85%;
+    margin:60px auto;
+    background:rgba(3, 60, 70, 0.85);
+    border-radius:15px;
+    padding:30px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.left-section{
+    width:60%;
+}
+
+.left-section h2{
+    text-align:center;
+    margin-bottom:20px;
+    color:gold;
+}
+
+label{
+    font-weight:bold;
+}
+
+select{
+    width:100%;
+    padding:10px;
+    margin:10px 0 20px;
+    border:none;
+    border-radius:5px;
+}
+
+.passenger-type{
+    margin-bottom:20px;
+}
+
+.btn{
+    padding:10px 15px;
+    border:none;
+    border-radius:6px;
+    cursor:pointer;
+    margin-right:10px;
+}
+
+.regular{
+    background:gold;
+    color:black;
+}
+
+.discount{
+    background:rgb(59, 59, 59);
+    color:white;
+}
+
+.fare-box{
+    width:30%;
+    background:#0b1c5c;
+    padding:40px 20px;
+    border-radius:15px;
+    text-align:center;
+}
+
+.fare-box h3{
+    font-size:22px;
+    margin-bottom:20px;
+}
+
+.fare-amount{
+    font-size:50px;
+    font-weight:bold;
+}
+
+footer{
+    text-align:center;
+    margin-top:40px;
+    background:rgba(14, 13, 13, 0.7);
+    padding:10px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="navbar">
+    <div class="nav-left">
+        <div class="logo">🚕 DriveMo</div>
+        <div class="nav-links">
+            <a href="#">Home</a>
+            <a href="#">Fare Matrix</a>
+            <a href="#">Schedule</a>
+            <a href="#">Help</a>
+        </div>
+    </div>
+    <a href="#" class="create-btn">Create Account</a>
+</div>
+
+<div class="container">
+
+<div class="left-section">
+    <h2>MRT Line 3 Fare Guide</h2>
+
+    <label>Pick-Up Location</label>
+    <select id="pickup">
+        <option value="0">North Avenue</option>
+        <option value="1">Quezon Avenue</option>
+        <option value="2">Kamuning</option>
+        <option value="3">Cubao</option>
+        <option value="4">Santolan-Annapolis</option>
+        <option value="5">Ortigas</option>
+        <option value="6">Shaw Boulevard</option>
+        <option value="7">Boni</option>
+        <option value="8">Guadalupe</option>
+        <option value="9">Buendia</option>
+        <option value="10">Ayala</option>
+        <option value="11">Magallanes</option>
+        <option value="12">Taft Avenue</option>
+    </select>
+
+    <label>Drop Off Location</label>
+    <select id="dropoff">
+        <option value="0">North Avenue</option>
+        <option value="1">Quezon Avenue</option>
+        <option value="2">Kamuning</option>
+        <option value="3">Cubao</option>
+        <option value="4">Santolan Annapolis</option>
+        <option value="5">Ortigas</option>
+        <option value="6">Shaw Boulevard</option>
+        <option value="7">Boni</option>
+        <option value="8">Guadalupe</option>
+        <option value="9">Buendia</option>
+        <option value="10">Ayala</option>
+        <option value="11">Magallanes</option>
+        <option value="12">Taft Avenue</option>
+    </select>
+
+    <label>Passenger Type</label>
+    <select id="passenger">
+        <option value="0">Regular</option>
+        <option value="0.20">Senior Citizen (20% off)</option>
+        <option value="0.20">PWD (20% off)</option>
+        <option value="0.20">Student (20% off)</option>
+    </select>
+
+    <button class="btn regular" onclick="computeFare()">Compute Fare</button>
+</div>
+
+<div class="fare-box">
+    <h3>Fare:</h3>
+    <div class="fare-amount" id="fare">PHP0.00</div>
+</div>
+
+</div>
+
+<footer>
+Miguel Jiminez - Jesse James Villante | 9-Topaz
+
+Sources: Philippine Beaches. (n.d.). MRT-3 guide: Fare, opening hours & more. https://www.philippinebeaches.org/mrt-3-guide-fare-opening-hours/
+
+</footer>
+
+<script>
+function computeFare(){
+
+    const baseFare = 50;
+    const perKMrate = 15;
+    const baseKM = 2;
+
+    let pickup = parseInt(document.getElementById("pickup").value);
+    let dropoff = parseInt(document.getElementById("dropoff").value);
+    let discountRate = parseFloat(document.getElementById("passenger").value);
+
+    let distance = Math.abs(dropoff - pickup);
+    let totalFare;
+
+    if(distance <= baseKM){
+        totalFare = baseFare;
+    }else{
+        let extraKM = distance - baseKM;
+        totalFare = baseFare + (extraKM * perKMrate);
+    }
+
+    totalFare = totalFare - (totalFare * discountRate);
+0
+    document.getElementById("fare").innerHTML = "PHP" + totalFare.toFixed(2);
+} r 
+</script>
+
+</body>
+</html>
